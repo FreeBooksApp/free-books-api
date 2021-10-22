@@ -20,3 +20,5 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     // delete <resource>
 })
+
+module.exports = router
