@@ -17,7 +17,7 @@ router.get('/:id', (req, res) => {
     const { id } = req.params
     const id_int = parseInt(id)
 
-    if(!id_int) {
+    if(isNaN(id)) {
         return res.status(400).json({message: "invalid request"})
     }
     // change type of id from string to integer

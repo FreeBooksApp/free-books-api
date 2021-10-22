@@ -2,6 +2,7 @@ const authors = require('../data/authors.json')
 const publishers = require('../data/publishers.json')
 
 module.exports = function getBookObject(book) {
+    if(!book) return null
     return {
         id: book.id,
         title: book.title,

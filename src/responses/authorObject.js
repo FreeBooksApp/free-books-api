@@ -1,6 +1,7 @@
 const books = require('../data/books.json')
 
 module.exports = function getAuthorObject(author) {
+    if(!author) return null
     return {
         id: author.id,
         name: author.name,
