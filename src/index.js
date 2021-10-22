@@ -4,10 +4,12 @@ const app = express()
 
 const bookRoutes = require('./routes/books');
 const authorRoutes = require('./routes/authors');
+const publisherRoutes = require('./routes/publishers');
 
 
 app.use('/books', bookRoutes);
 app.use('/authors', authorRoutes);
+app.use('/publishers', publisherRoutes);
 
 app.get('/ping', (req, res) => {
 
