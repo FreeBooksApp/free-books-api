@@ -1,0 +1,56 @@
+[
+    {
+        "id": 0,
+        "title": "You Don't know Programming",
+        "categories": [
+            "programming", "JavaScript", "computer", "suggested_for_edriss"
+        ], 
+        "author_id": 0, 
+        "url": "/files/books/1_19230949212_You_Dont_Know_programming.pdf",
+        "date_published": "2021/10/21",
+        "date_registered": "2021/10/21",
+        "num_pages": 382,
+        "publisher": 0
+    },
+    {
+        "id": 1,
+        "title": "Why I don't know HTML", 
+        "categories": [
+            "programming", "HTML5", "HTML6"
+        ], 
+        "author_id": 1,
+        "url": "/files/books/1_19230949212_Why_I_dont_know_HTML.pdf",
+        "date_published": "1991/11/03",
+        "date_registered": "2021/10/21",
+        "num_pages": 45,
+        "publisher": 2
+    }, 
+    {
+        
+        "id": 2,
+        "title": "Find your dream job", 
+        "categories": [
+            "startup", "programming", "job"
+        ], 
+        "author_id": 0,
+        "url": "/files/books/1_19230949212_find_your_dream_job.pdf",
+        "date_published": "1991/11/03",
+        "date_registered": "2021/10/21",
+        "num_pages": 45,
+        "publisher": 0
+    },
+    {    
+        "id": 3,
+        "title": "اشعار استاد محمد ادریس آریا", 
+        "categories": [
+            "persian", "شعر", "یار"
+        ], 
+        "author_id": 0,
+        "url": "/files/books/3_1923094128290_edriss_poems.pdf",
+        "date_published": "2021/10/01",
+        "date_registered": "2021/10/21",
+        "num_pages": 2600,
+        "publisher": 1
+    },
+    
+]
