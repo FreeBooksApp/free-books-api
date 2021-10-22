@@ -15,11 +15,13 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     // get info about single book
     const { id } = req.params
-    if(!id) {
-        res.status(400).json({message: "invalid request"})
+    const id_int = parseInt(id)
+
+    if(!id_int) {
+        return res.status(400).json({message: "invalid request"})
     }
     // change type of id from string to integer
-    const book = getBook(parseInt(id))
+    const book = getBook(id_int)
     if(!book) {
         return res.status(404).json({message: "book not found"})
     } else {
