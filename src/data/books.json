@@ -6,9 +6,9 @@
             "programming", "JavaScript", "computer", "suggested_for_edriss"
         ], 
         "author_id": 0, 
-        "url": "/files/books/1_19230949212_You_Dont_Know_programming.pdf",
-        "date_published": "2021/10/21",
-        "date_registered": "2021/10/21",
+        "url": "/files/books/0_19230959202_You_Dont_Know_programming.pdf",
+        "published_at": "2021/10/21",
+        "registered_at": "2021/10/21",
         "num_pages": 382,
         "publisher": 0
     },
@@ -19,9 +19,9 @@
             "programming", "HTML5", "HTML6"
         ], 
         "author_id": 1,
-        "url": "/files/books/1_19230949212_Why_I_dont_know_HTML.pdf",
-        "date_published": "1991/11/03",
-        "date_registered": "2021/10/21",
+        "url": "/files/books/1_19230949235_Why_I_dont_know_HTML.pdf",
+        "published_at": "1991/11/03",
+        "registered_at": "2021/10/21",
         "num_pages": 45,
         "publisher": 2
     }, 
@@ -33,24 +33,23 @@
             "startup", "programming", "job"
         ], 
         "author_id": 0,
-        "url": "/files/books/1_19230949212_find_your_dream_job.pdf",
-        "date_published": "1991/11/03",
-        "date_registered": "2021/10/21",
+        "url": "/files/books/2_19230949252_find_your_dream_job.pdf",
+        "published_at": "1991/11/03",
+        "registered_at": "2021/10/21",
         "num_pages": 45,
         "publisher": 0
     },
     {    
         "id": 3,
-        "title": "اشعار استاد محمد ادریس آریا", 
+        "title": "دیوان اشعار استاد محمد ادریس آریا", 
         "categories": [
             "persian", "شعر", "یار"
         ], 
         "author_id": 0,
         "url": "/files/books/3_1923094128290_edriss_poems.pdf",
-        "date_published": "2021/10/01",
-        "date_registered": "2021/10/21",
+        "published_at": "2021/10/01",
+        "registered_at": "2021/10/21",
         "num_pages": 2600,
         "publisher": 1
-    },
-    
+    }
 ]
