@@ -19,7 +19,7 @@ model Books {
     published_at DateTime?
     registered_at DateTime @default(now())
     categories Tags[] 
-    num_pages Int?
+    pages_count Int?
 }
 
 model Authors {
