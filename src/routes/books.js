@@ -61,6 +61,9 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     // delete book
+    deleteBook(Number(id)).then(result => {
+        res.json({message: "deleted successfully"})
+    })
 })
 
 module.exports = router

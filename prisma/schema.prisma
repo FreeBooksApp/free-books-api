@@ -1,39 +1,51 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
 datasource db {
-    provider "postgresql"
-    url: env("DATABASE_URL")
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
 }
 
 model Books {
-    id integer
-    title string
-    url string
-    cover string
-    author Authors
+    id Int            @id @default(autoincrement())
+    title String
+    url String
+    cover String
+    author Authors @relation(fields: [author_id], references: id)
+    author_id Int
+    publisher Publishers @relation(fields: [publisher_id], references: id)
+    publisher_id Int
     published_at DateTime
-    registered_at DateTime
-    categories Categories[]
-    num_pages integer
+    registered_at DateTime @default(now())
+    categories Tags[] 
+    num_pages Int
 }
 
 model Authors {
-    id integer
-    name string
-    profile string
-    about string
-    contact string
-    registered_at
+    id Int          @id @default(autoincrement())
+    name String
+    profile String
+    about String
+    contact String
+    books Books[]
+    registered_at DateTime @default(now())
 }
 
 model Publishers {
-    id integer
-    name string
-    homepage string
-    origin string
-    logo string
-    registered_at
+    id Int          @id @default(autoincrement())
+    name String
+    homepage String
+    origin String
+    logo String
+    books Books[]
+    registered_at DateTime
 }
 
 model Tags {
-    name string
-    book_id Books
+    name String
+    book Books @relation(fields: book_id, references: id)
+    book_id Int
+
+    @@id([name, book_id])
 }
