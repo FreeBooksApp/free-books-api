@@ -11,23 +11,23 @@ model Books {
     id Int            @id @default(autoincrement())
     title String
     url String
-    cover String
+    cover String?
     author Authors @relation(fields: [author_id], references: id)
     author_id Int
-    publisher Publishers @relation(fields: [publisher_id], references: id)
-    publisher_id Int
-    published_at DateTime
+    publisher Publishers? @relation(fields: [publisher_id], references: id)
+    publisher_id Int?
+    published_at DateTime?
     registered_at DateTime @default(now())
     categories Tags[] 
-    num_pages Int
+    num_pages Int?
 }
 
 model Authors {
     id Int          @id @default(autoincrement())
     name String
-    profile String
-    about String
-    contact String
+    profile String?
+    about String?
+    contact String?
     books Books[]
     registered_at DateTime @default(now())
 }
@@ -35,9 +35,9 @@ model Authors {
 model Publishers {
     id Int          @id @default(autoincrement())
     name String
-    homepage String
-    origin String
-    logo String
+    homepage String?
+    origin String?
+    logo String?
     books Books[]
     registered_at DateTime
 }
