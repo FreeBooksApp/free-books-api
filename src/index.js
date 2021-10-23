@@ -6,6 +6,10 @@ const bookRoutes = require('./routes/books');
 const authorRoutes = require('./routes/authors');
 const publisherRoutes = require('./routes/publishers');
 
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+
 
 app.use('/books', bookRoutes);
 app.use('/authors', authorRoutes);
