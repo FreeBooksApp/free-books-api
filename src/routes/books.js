@@ -24,11 +24,14 @@ router.post('/', (req, res) => {
     // upload new book
     const book = req.body;
 
-    createBook(book).then(result => {
-        res.json(result)
-    }).catch(err => {
-        res.status(500).json({message: err.message})
-    })
+    createBook(book)
+        .then(result => {
+            res.json(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: err.message})
+        })
 })
 
 router.get('/:id', (req, res) => {
@@ -40,6 +43,7 @@ router.get('/:id', (req, res) => {
             return res.json(book)
         })
         .catch(err => {
+            console.log({err})
             res.status(500).json({message: err.message})
         })
 })

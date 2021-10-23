@@ -51,24 +51,27 @@ exports.updateBook = async (id, book) => {
 exports.createBook = async (book) => {
     try {
         const {author_id, publisher_id, ...rest} = book
+
         const result = await prisma.books.create({
             data: {
-                rest,
+                ...rest,
                 author: {
                     connect: {
-                        author: author_id
+                        id: Number(author_id)
                     }
                 },
                 publisher: {
                     connect: {
-                        publisher: publisher_id
+                        id: Number(publisher_id)
                     }
                 }
             }
         })
+
+        return result;
          
     } catch(err) {
-        throw new Error("unable to add book to database")
+        throw err
     }
 }
 
