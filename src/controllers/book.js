@@ -32,6 +32,12 @@ exports.getBook = async (id) => {
 
 exports.updateBook = async (id, book) => {
     try {
+        // const {author_id, publisher_id, ...rest} = book;
+        // rest.pages_count = Number(rest.pages_count) || null
+        if(book.author_id) book.author_id = Number(book.author_id)
+        if(book.publisher_id) book.publisher_id = Number(book.publisher_id)
+        if(book.pages_count) book.pages_count = Number(book.pages_count)
+
 
         const updatedBook = prisma.books.update({
             where: {
@@ -71,6 +77,7 @@ exports.createBook = async (book) => {
         return result;
          
     } catch(err) {
+        console.log(err)
         throw err
     }
 }
@@ -83,9 +90,9 @@ exports.deleteBook = async (id) => {
                 id: id
             }
         })
-        console.log(result)
         return result
     } catch(err) {
+        // console.log(err.message)
         throw new Error("unable to delete book from database")
     }
 }

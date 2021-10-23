@@ -23,6 +23,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     // upload new book
     const book = req.body;
+    book.pages_count = Number(book.pages_count) || null;
 
     createBook(book)
         .then(result => {
@@ -56,17 +57,24 @@ router.put('/:id', (req, res) => {
         return res.status(400).json({message: "invalid request"});
     }
 
-    if(!validateBook(req.body)) {
-        return res.status(400).json({message: "invalid request (body)"})
-    }
+    // if(!validateBook(req.body)) {
+        // return res.status(400).json({message: "invalid request (body)"})
+    // }
 
-    updateBook(Number(id), req.body)
+    updateBook(Number(id), req.body).then(result => {
+        console.log(result)
+        res.json(result)
+    })
 })
 
 router.delete('/:id', (req, res) => {
     // delete book
+    const {id} = req.params
     deleteBook(Number(id)).then(result => {
         res.json({message: "deleted successfully"})
+    })
+    .catch(err => {
+        res.status(500).json({message: err.message})
     })
 })
 
