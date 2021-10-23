@@ -1,12 +1,88 @@
-const books = require('../data/books.json')
-const authors = require('../data/authors.json')
-const publishers = require('../data/publishers.json')
-const getBookObject = require('../responses/bookObject')
+const prisma = require('../prisma')
 
-exports.getBooks = () => {
-    return books.map(getBookObject)
+exports.getBooks = async () => {
+    const books = await prisma.books.findMany({
+        include: {
+            author: true,
+            publisher: true
+        }
+    })
+    console.log(books)
+    return books
 }
 
-exports.getBook = (id) => {
-    return getBookObject(books.find(book => book.id === id))
+exports.getBook = async (id) => {
+    try {
+
+        const book = await prisma.books.findUnique({
+            where: {
+                id: id
+            }, 
+            include: {
+                author: true,
+                publisher: true
+            }  
+        })
+        console.log(book)
+        return book;
+    } catch(err) {
+        throw new Error("unable to get book with id: " + id)
+    }
+}
+
+exports.updateBook = async (id, book) => {
+    try {
+
+        const updatedBook = prisma.books.update({
+            where: {
+                id: id
+            }, 
+            data: book
+        })
+
+        console.log(updatedBook)
+        return updatedBook
+        
+    } catch(err) {
+        throw new Error("unable to update book")
+    }
+}
+
+exports.createBook = async (book) => {
+    try {
+        const {author_id, publisher_id, ...rest} = book
+        const result = await prisma.books.create({
+            data: {
+                rest,
+                author: {
+                    connect: {
+                        author: author_id
+                    }
+                },
+                publisher: {
+                    connect: {
+                        publisher: publisher_id
+                    }
+                }
+            }
+        })
+         
+    } catch(err) {
+        throw new Error("unable to add book to database")
+    }
+}
+
+exports.deleteBook = async (id) => {
+    try {
+        // TODO: also delete files related to this book
+        const result = await prisma.books.delete({
+            where: {
+                id: id
+            }
+        })
+        console.log(result)
+        return result
+    } catch(err) {
+        throw new Error("unable to delete book from database")
+    }
 }

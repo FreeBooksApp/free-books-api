@@ -1,36 +1,62 @@
 const express = require('express')
 const router = express.Router();
 
-const {getBook, getBooks} = require('../controllers/book')
+const {
+    getBook, 
+    getBooks,
+    updateBook,
+    deleteBook,
+    createBook
+} = require('../controllers/book')
 
 router.get('/', (req, res) => {
     // return list of all books (with pagination)
-    res.json(getBooks())
+    getBooks()
+        .then(books => {
+            res.json(books)
+        })
+        .catch(err => {
+            res.status(500).json({message: err.message})
+        })
 })
 
 router.post('/', (req, res) => {
     // upload new book
+    const book = req.body;
+
+    createBook(book).then(result => {
+        res.json(result)
+    }).catch(err => {
+        res.status(500).json({message: err.message})
+    })
 })
 
 router.get('/:id', (req, res) => {
     // get info about single book
     const { id } = req.params
-    const id_int = parseInt(id)
-
-    if(isNaN(id)) {
-        return res.status(400).json({message: "invalid request"})
-    }
-    // change type of id from string to integer
-    const book = getBook(id_int)
-    if(!book) {
-        return res.status(404).json({message: "book not found"})
-    } else {
-        return res.json(book)
-    }
+    
+    getBook(Number(id))
+        .then(book => {
+            return res.json(book)
+        })
+        .catch(err => {
+            res.status(500).json({message: err.message})
+        })
 })
 
 router.put('/:id', (req, res) => {
     // update book info
+    const { id } = req.params;
+
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
+
+    if(!validateBook(req.body)) {
+        return res.status(400).json({message: "invalid request (body)"})
+    }
+
+    updateBook(Number(id), req.body)
 })
 
 router.delete('/:id', (req, res) => {
