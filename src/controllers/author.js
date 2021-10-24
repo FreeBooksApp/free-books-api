@@ -1,11 +1,21 @@
-const authors = require('../data/authors.json')
-const getAuthorObject = require('../responses/authorObject')
-
-
-exports.getAuthors = () => {
-    return authors.map(getAuthorObject)
-}
+const prisma = require('../prisma')
 
 exports.getAuthor = (id) => {
-    return getAuthorObject(authors.find(author => author.id === id))
+    
+}
+
+exports.getAuthors = () => {
+
+}
+
+exports.createAuthor = (author) => {
+
+}
+
+exports.updateAuthor = (id, author) => {
+
+}
+
+exports.deleteAuthor = (id) => {
+
 }

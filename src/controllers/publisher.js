@@ -1,11 +1,21 @@
-const publishers = require('../data/publishers.json')
-const getPublisherObject = require('../responses/publisherObject')
-
-
-exports.getPublishers = () => {
-    return publishers.map(getPublisherObject)
-}
+const prisma = require('../prisma')
 
 exports.getPublisher = (id) => {
-    return getPublisherObject(publishers.find(publisher => publisher.id === id))
+    
+}
+
+exports.getPublishers = () => {
+
+}
+
+exports.createPublisher = (publisher) => {
+
+}
+
+exports.updatePublisher = (id, publisher) => {
+
+}
+
+exports.deletePublisher = (id) => {
+
 }
