@@ -18,8 +18,13 @@ you can send HTTP request to these routes
     /books/:id -> return info about single book
     /authors -> returns list of book writers
     /authors/:id -> information about single author including list of his/her books
-    /search?name=<book or author name> -> returns list of matching books or authors
+    /publishers -> returns list of book publishers
+    /publishers/:id -> information about single publisher including list of the published books
+
     /ping -> to test everything works (must return pong)
+
+    *Not implemented below yet
+    /search?name=<book or author name> -> returns list of matching books or authors
 
 
 ```
@@ -71,14 +76,17 @@ Book object contains full information about book, author and it's publisher
 {
     id: integer(id),
     title: string,
-    cover: string(URL),
+    url: string(URL),
+    cover: string(URL) | null,
+    author_id: integer(id),
+    publisher_id: integer(id),
+    published_at: stirng(Date) | null,
+    registered_at: string(Date),
     pages_count: integer,
-    download_count: integer,
     author: Author{...},
     publisher: Publisher{...},
-    categories: [stirng, string, ...],
-    published_at: stirng(Date),
-    registered_at: string(Date),
+    // download_count: integer,
+    // tags: [stirng, string, ...],
 }
 ```
 
@@ -87,9 +95,10 @@ Book object contains full information about book, author and it's publisher
 {
     id: integer(id),
     name: string,
-    profile: string(URL),
-    about: string,
-    contact: string(URL),
+    profile: string(URL) | null,
+    about: string | null,
+    contact: string(URL) | null,
+    registered_at: string(Date)
     books: [Book{...}, Book{...}, ...]
 }
 ```
@@ -99,9 +108,9 @@ Book object contains full information about book, author and it's publisher
 {
     id: integer(id),
     name: string,
-    homepage: string(URL),
-    origin: string,
-    logo: string(URL),
+    homepage: string(URL) | null,
+    origin: string | null,
+    logo: string(URL) | null,
     registered_at: string(Date)
 }
 ```

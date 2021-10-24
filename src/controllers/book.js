@@ -1,12 +1,67 @@
-const books = require('../data/books.json')
-const authors = require('../data/authors.json')
-const publishers = require('../data/publishers.json')
-const getBookObject = require('../responses/bookObject')
+const prisma = require('../prisma')
 
 exports.getBooks = () => {
-    return books.map(getBookObject)
+    return prisma.books.findMany({
+        include: {
+            author: true,
+            publisher: true
+        }
+    })
 }
 
 exports.getBook = (id) => {
-    return getBookObject(books.find(book => book.id === id))
+    return prisma.books.findUnique({
+        where: {
+            id: id
+        }, 
+        include: {
+            author: true,
+            publisher: true
+        }  
+    })
+}
+
+exports.updateBook = async (id, book) => {
+
+    if(book.author_id) book.author_id = Number(book.author_id)
+    if(book.publisher_id) book.publisher_id = Number(book.publisher_id)
+    if(book.pages_count) book.pages_count = Number(book.pages_count)
+
+
+    return prisma.books.update({
+        where: {
+            id: id
+        }, 
+        data: book
+    })
+}
+
+exports.createBook = async (book) => {
+    const {author_id, publisher_id, ...rest} = book
+
+    return await prisma.books.create({
+        data: {
+            ...rest,
+            author: {
+                connect: {
+                    id: Number(author_id)
+                }
+            },
+            publisher: {
+                connect: {
+                    id: Number(publisher_id)
+                }
+            }
+        }
+    })
+}
+
+exports.deleteBook = (id) => {
+    // TODO: also remove related files
+
+    return prisma.books.delete({
+        where: {
+            id: id
+        }
+    })
 }
