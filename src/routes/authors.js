@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
-const {getAuthor, getAuthors, updateAuthor, deleteAuthor} = require('../controllers/author')
+const {
+    getAuthor, 
+    getAuthors, 
+    createAuthor, 
+    updateAuthor, 
+    deleteAuthor
+} = require('../controllers/author')
 
 router.get('/', (req, res) => {
     // return list of all authors (with pagination)
