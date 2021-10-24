@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router();
-
 const {
     getBook, 
     getBooks,
@@ -16,7 +15,7 @@ router.get('/', (req, res) => {
             res.json(books)
         })
         .catch(err => {
-            res.status(500).json({message: err.message})
+            res.status(500).json({message: "cannot get list of books"})
         })
 })
 
@@ -31,13 +30,16 @@ router.post('/', (req, res) => {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({message: err.message})
+            res.status(500).json({message: "cannot create book"})
         })
 })
 
 router.get('/:id', (req, res) => {
     // get info about single book
     const { id } = req.params
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
     
     getBook(Number(id))
         .then(book => {
@@ -45,7 +47,7 @@ router.get('/:id', (req, res) => {
         })
         .catch(err => {
             console.log({err})
-            res.status(500).json({message: err.message})
+            res.status(500).json({message: "unable to get book"})
         })
 })
 
@@ -57,25 +59,31 @@ router.put('/:id', (req, res) => {
         return res.status(400).json({message: "invalid request"});
     }
 
-    // if(!validateBook(req.body)) {
-        // return res.status(400).json({message: "invalid request (body)"})
-    // }
-
-    updateBook(Number(id), req.body).then(result => {
-        console.log(result)
-        res.json(result)
-    })
+    updateBook(Number(id), req.body)
+        .then(result => {
+            console.log(result)
+            res.json(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "cannot update book"})
+        })
 })
 
 router.delete('/:id', (req, res) => {
     // delete book
     const {id} = req.params
-    deleteBook(Number(id)).then(result => {
-        res.json({message: "deleted successfully"})
-    })
-    .catch(err => {
-        res.status(500).json({message: err.message})
-    })
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
+
+    deleteBook(Number(id))
+        .then(result => {
+            res.json({message: "deleted successfully"})
+        })
+        .catch(err => {
+            res.status(500).json({message: err.message})
+        })
 })
 
 module.exports = router

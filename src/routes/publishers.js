@@ -35,7 +35,11 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     // get info about single Publisher
     const {id} = req.params
-    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+    
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
+
     getPublisher(Number(id))
         .then(publisher => {
             if(!publisher) {
@@ -55,7 +59,9 @@ router.put('/:id', (req, res) => {
     const {id} = req.params;
     const publisher = req.body;
 
-    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
 
     updatePublisher(Number(id), publisher)
         .then(result => {
@@ -71,7 +77,10 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     // delete Publisher
     const {id} = req.params
-    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+    
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
 
     deletePublisher(Number(id))
         .then(result => {

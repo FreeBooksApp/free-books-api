@@ -34,7 +34,11 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     // get info about single author
     const {id} = req.params
-    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
+    
     getAuthor(Number(id))
         .then(author => {
             if(!author) {
@@ -54,7 +58,9 @@ router.put('/:id', (req, res) => {
     const {id} = req.params;
     const author = req.body;
 
-    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
 
     updateAuthor(Number(id), author)
         .then(result => {
@@ -70,8 +76,10 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     // delete author
     const {id} = req.params
-    if(!Number(id)) return res.status(400).json({message: "invalid request"})
-
+    if(isNaN(Number(id))) {
+        return res.status(400).json({message: "invalid request"});
+    }
+    
     deleteAuthor(Number(id))
         .then(result => {
             res.json({message: "author deleted successfully"})
