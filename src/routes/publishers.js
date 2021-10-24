@@ -1,39 +1,86 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
 
-const {getPublisher, getPublishers} = require('../controllers/publisher')
+const {
+    getPublisher, 
+    getPublishers, 
+    createPublisher, 
+    updatePublisher, 
+    deletePublisher
+} = require('../controllers/publisher')
 
 router.get('/', (req, res) => {
     // return list of all publishers (with pagination)
-    return res.json(getPublishers())
+    getPublishers()
+        .then(publishers => {
+            console.log(publishers)
+            res.json(publishers)
+        })
+        .catch(err => console.log(err))
 })
 
 router.post('/', (req, res) => {
-    // upload new publisher
+    // register new Publisher
+    const publisher = req.body
+
+    createPublisher(publisher)
+        .then(result => {
+            console.log(result)
+            res.json(result)
+        })
+        .catch(err => console.log(err))
+
 })
 
 router.get('/:id', (req, res) => {
-    // get info about single publisher
+    // get info about single Publisher
     const {id} = req.params
-    const id_int = parseInt(id)
+    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+    getPublisher(Number(id))
+        .then(publisher => {
+            if(!publisher) {
+                return res.status(404).json({message: "publisher not found"})
+            }
+            res.json(publisher)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({messge: "Internal Error"})
+        })
 
-    if(isNaN(id)) {
-        return res.status(400).json({message: "invalid request"})
-    }
-
-    const publisher = getPublisher(id_int);
-    if(!publisher) {
-        return res.status(404).json({message: "Publisher not found"})
-    }
-    return res.json(publisher)
 })
 
 router.put('/:id', (req, res) => {
     // update Publisher info
+    const {id} = req.params;
+    const publisher = req.body;
+
+    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+
+    updatePublisher(Number(id), publisher)
+        .then(result => {
+            console.log(result)
+            res.json(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "cannot update publisher"})
+        })
 })
 
 router.delete('/:id', (req, res) => {
     // delete Publisher
+    const {id} = req.params
+    if(!Number(id)) return res.status(400).json({message: "invalid request"})
+
+    deletePublisher(Number(id))
+        .then(result => {
+            res.json({message: "publisher deleted successfully"})
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: "cannot delete publisher"})
+        })
 })
 
 module.exports = router
