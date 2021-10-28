@@ -16,11 +16,7 @@ you can send HTTP request to these routes
 ```
     /books -> returns list of available books
     /books/:id -> return info about single book
-    /authors -> returns list of book writers
-    /authors/:id -> information about single author including list of his/her books
-    /publishers -> returns list of book publishers
-    /publishers/:id -> information about single publisher including list of the published books
-
+    
     /ping -> to test everything works (must return pong)
 
     *Not implemented below yet
@@ -38,6 +34,9 @@ you can send HTTP request to these routes
         .then(books => {
             console.log(books)
             /*
+
+                returns array of books;
+
                 [
                     Book {...},
                     Book {...},
@@ -56,6 +55,8 @@ you can send HTTP request to these routes
         .then(book => {
             console.log(book)
             /*
+                return object of single book
+                
                 Book {
                     id: 2,
                     title: ...,
@@ -67,50 +68,35 @@ you can send HTTP request to these routes
         })
 ```
 
-## Objects
-Here is list of objects that you will get as response.
 
-### Book
-Book object contains full information about book, author and it's publisher
-```
-{
-    id: integer(id),
-    title: string,
-    url: string(URL),
-    cover: string(URL) | null,
-    author_id: integer(id),
-    publisher_id: integer(id),
-    published_at: stirng(Date) | null,
-    registered_at: string(Date),
-    pages_count: integer,
-    author: Author{...},
-    publisher: Publisher{...},
-    // download_count: integer,
-    // tags: [stirng, string, ...],
-}
-```
+### Response
 
-### Author
-```
-{
-    id: integer(id),
-    name: string,
-    profile: string(URL) | null,
-    about: string | null,
-    contact: string(URL) | null,
-    registered_at: string(Date)
-    books: [Book{...}, Book{...}, ...]
-}
-```
+Book object contains full information about the book.
 
-### Publisher
+
 ```
-{
-    id: integer(id),
-    name: string,
-    homepage: string(URL) | null,
-    origin: string | null,
-    logo: string(URL) | null,
-    registered_at: string(Date)
+model Books {
+  id            Int      @id @default(autoincrement())
+  title         String
+  url           String
+  language      String
+  cover         String?
+  year          String?
+  edition       Int?
+  filesize      Int
+  extension     String
+  registered_at DateTime @default(now())
+  pages_count   Int?
+  author        String?
+  publisher     String?
+  topic         Topics?  @relation(fields: [topicsId], references: [id])
+  topicsId      Int?
 }
+
+model Topics {
+  name  String
+  id    Int     @unique
+  Books Books[]
+}
+
 ```

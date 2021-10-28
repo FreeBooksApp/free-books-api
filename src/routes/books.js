@@ -1,12 +1,9 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router();
-const {
+import {
     getBook, 
     getBooks,
-    updateBook,
-    deleteBook,
-    createBook
-} = require('../controllers/book')
+} from '../controllers/book.js'
 
 router.get('/', (req, res) => {
     // return list of all books (with pagination)
@@ -15,22 +12,8 @@ router.get('/', (req, res) => {
             res.json(books)
         })
         .catch(err => {
-            res.status(500).json({message: "cannot get list of books"})
-        })
-})
-
-router.post('/', (req, res) => {
-    // upload new book
-    const book = req.body;
-    book.pages_count = Number(book.pages_count) || null;
-
-    createBook(book)
-        .then(result => {
-            res.json(result)
-        })
-        .catch(err => {
             console.log(err)
-            res.status(500).json({message: "cannot create book"})
+            res.status(500).json({message: "cannot get list of books"})
         })
 })
 
@@ -51,39 +34,4 @@ router.get('/:id', (req, res) => {
         })
 })
 
-router.put('/:id', (req, res) => {
-    // update book info
-    const { id } = req.params;
-
-    if(isNaN(Number(id))) {
-        return res.status(400).json({message: "invalid request"});
-    }
-
-    updateBook(Number(id), req.body)
-        .then(result => {
-            console.log(result)
-            res.json(result)
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({message: "cannot update book"})
-        })
-})
-
-router.delete('/:id', (req, res) => {
-    // delete book
-    const {id} = req.params
-    if(isNaN(Number(id))) {
-        return res.status(400).json({message: "invalid request"});
-    }
-
-    deleteBook(Number(id))
-        .then(result => {
-            res.json({message: "deleted successfully"})
-        })
-        .catch(err => {
-            res.status(500).json({message: err.message})
-        })
-})
-
-module.exports = router
+export default router

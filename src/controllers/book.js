@@ -1,67 +1,43 @@
-const prisma = require('../prisma')
+import prisma from '../prisma.js'
+import {getBookFromAPI} from '../api'
 
-exports.getBooks = () => {
+export const getBooks = () => {
     return prisma.books.findMany({
         include: {
-            author: true,
-            publisher: true
+            topic: true
         }
     })
 }
 
-exports.getBook = (id) => {
-    return prisma.books.findUnique({
-        where: {
-            id: id
-        }, 
-        include: {
-            author: true,
-            publisher: true
-        }  
-    })
-}
+export const getBook = async(id) => {
 
-exports.updateBook = async (id, book) => {
+    try {
 
-    if(book.author_id) book.author_id = Number(book.author_id)
-    if(book.publisher_id) book.publisher_id = Number(book.publisher_id)
-    if(book.pages_count) book.pages_count = Number(book.pages_count)
-
-
-    return prisma.books.update({
-        where: {
-            id: id
-        }, 
-        data: book
-    })
-}
-
-exports.createBook = async (book) => {
-    const {author_id, publisher_id, ...rest} = book
-
-    return await prisma.books.create({
-        data: {
-            ...rest,
-            author: {
-                connect: {
-                    id: Number(author_id)
-                }
-            },
-            publisher: {
-                connect: {
-                    id: Number(publisher_id)
-                }
+        const result = await prisma.books.findUnique({
+            where: {
+                id: id
+            }, include: {
+                topic: true
             }
-        }
-    })
-}
+        })
+        if(result)
+            return result
+        else throw new Error("not found")
+    } catch(err) {
+        // maybe book not found
+        // if book is not found get from libgen
 
-exports.deleteBook = (id) => {
-    // TODO: also remove related files
+        console.log(err)
 
-    return prisma.books.delete({
-        where: {
-            id: id
+        const book = await getBookFromAPI(id)
+        
+        const result = await prisma.books.create({data: book})
+
+        console.log("TODO: if result is complete return that instead of book")
+
+        if(!result) {
+            console.log("cannot add to database")
         }
-    })
+        return book;
+    }
 }

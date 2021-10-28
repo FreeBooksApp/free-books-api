@@ -1,20 +1,14 @@
-const express = require('express')
+import express from 'express'
 
 const app = express()
 
-const bookRoutes = require('./routes/books');
-const authorRoutes = require('./routes/authors');
-const publisherRoutes = require('./routes/publishers');
+import bookRoutes from './routes/books.js';
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 
-
 app.use('/books', bookRoutes);
-app.use('/authors', authorRoutes);
-app.use('/publishers', publisherRoutes);
-
 app.get('/ping', (req, res) => {
 
 	return res.send('pong');

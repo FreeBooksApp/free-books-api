@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Upload Book</title>
+</head>
+<body>
+    <h1>Upload Your Book</h1>
+    <form method="POST" action="/books">
+        Author_id: <input type="text" name="author_id">
+        publisher_id: <input type="text" name="publisher_id">
+        title: <input type="text" name="title">
+        cover image: <input type="text" name="cover">
+        url: <input type="text" name="url">
+        pages_count: <input type="number" name="pages_count">
+        published_at: <input type="text" name="published_at">
+
+        <button type="submit">Upload</button>
+
+
+    </form>
+</body>
+</html>
