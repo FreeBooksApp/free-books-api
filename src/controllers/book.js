@@ -1,5 +1,5 @@
 import prisma from '../prisma.js'
-import {getBookFromAPI} from '../api'
+import {getBookFromAPI} from '../api.js'
 
 export const getBooks = () => {
     return prisma.books.findMany({
