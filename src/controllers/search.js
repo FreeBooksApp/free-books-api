@@ -1,16 +1,16 @@
-import { prisma } from "@prisma/client";
-import { searchBooksByTopic, searchBooksByTitle } from "../api";
+import prisma from "../prisma.js";
+import { searchBooksByTopic, searchBook } from "../api.js";
 
-export function searchBookController(req, res) {
-    const { bookTitle } = req.params
+export async function searchBookController(req, res) {
+    const { bookName } = req.params
 
-    if(!bookTitle) {
+    if(!bookName) {
         res.status(400).json({message: "invalid request"})
     }
 
     try {
 
-        const books = await searchBooksByTitle(bookTitle);
+        const books = await searchBook(bookName);
         
         if(books) {
             const result = await prisma.books.createMany({
@@ -31,7 +31,7 @@ export function searchBookController(req, res) {
 }
 
 
-export function searchByAuthorController(req, res) {
+export async function searchByAuthorController(req, res) {
     const { name } = req.params
 
     if(!name) {
@@ -58,7 +58,7 @@ export function searchByAuthorController(req, res) {
     }
 }
 
-export function searchByPublisherController(req, res) {
+export async function searchByPublisherController(req, res) {
     const { name } = req.params
 
     if(!name) {
@@ -85,7 +85,7 @@ export function searchByPublisherController(req, res) {
     }
 }
 
-export function searchByTopicController(req, res) {
+export async function searchByTopicController(req, res) {
     const { name } = req.params
 
     if(!name) {

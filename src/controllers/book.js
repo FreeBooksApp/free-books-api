@@ -32,14 +32,18 @@ export const getBook = async(id) => {
         console.log(err)
 
         const book = await getBookFromAPI(id)
-        
-        const result = await prisma.books.create({data: book})
+        if(!book) {
+            console.log("cannot get book")
+        } else {
 
-        console.log("TODO: if result is complete return that instead of book")
+            const result = await prisma.books.create({data: book})
+            console.log("TODO: if result is complete return that instead of book")
 
-        if(!result) {
-            console.log("cannot add to database")
+            if(!result) {
+                console.log("cannot add to database")
+            }
         }
+
         return book;
     }
 }

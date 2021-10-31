@@ -20,6 +20,9 @@ export async function getLinks(md5) {
 
 export default async function getBookInfo(ids) {
 
+    if(!Array.isArray(ids) || typeof ids !== 'number' || typeof Number(ids) !== 'number') {
+        return null
+    }
     let ids_str = ids.join()
         
 

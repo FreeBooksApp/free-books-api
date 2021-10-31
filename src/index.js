@@ -9,8 +9,8 @@ import topicsRoutes from './routes/topics.js';
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.get('/search', searchRoutes);
-app.get('/topics', topicsRoutes);
+app.use('/search', searchRoutes);
+app.use('/topics', topicsRoutes);
 app.use('/books', bookRoutes);
 app.get('/ping', (req, res) => {
 

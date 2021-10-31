@@ -9,7 +9,7 @@ import {
     searchByAuthorController,
     searchByPublisherController,
     searchByTopicController
-} from '../controllers/search'
+} from '../controllers/search.js'
 
 
 router.get('/book/:bookName', searchBookController);

@@ -8,9 +8,6 @@ export function getBookFromAPI(id) {
     return getBooks(id) 
 }
 
-export async function searchBookByTitle(query) {
-    return await searchBooks(query.replaceAll(/\s/, '+'))
-}
 
 export async function searchBook(query) {
     return await searchBooks(query)
@@ -25,6 +22,9 @@ export async function searchBooksByTopic(topicStr) {
             }
         }
     })
-
-    return await searchBooks(`topicId${result[0].id}?column=topic`);    
+    if(result.length > 0) {   
+        return await searchBooks(`topicId${result[0].id}?column=topic`);    
+    } else {
+        return null
+    }
 }
