@@ -1,8 +1,10 @@
 import prisma from '../prisma.js'
 import {getBookFromAPI} from '../api.js'
 
-export const getBooks = () => {
+export const getBooks = ({skip, take}) => {
     return prisma.books.findMany({
+        take, 
+        skip,
         include: {
             topic: true
         }

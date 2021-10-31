@@ -6,8 +6,11 @@ import {
 } from '../controllers/book.js'
 
 router.get('/', (req, res) => {
+
+    const skip = req.params.skip || 0
+    const take = req.params.take || 20
     // return list of all books (with pagination)
-    getBooks()
+    getBooks({skip, take})
         .then(books => {
             res.json(books)
         })
