@@ -85,7 +85,7 @@ export function searchByPublisherController(req, res) {
     }
 }
 
-export function searchBooksByTopicController(req, res) {
+export function searchByTopicController(req, res) {
     const { name } = req.params
 
     if(!name) {

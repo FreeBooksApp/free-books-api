@@ -9,6 +9,44 @@ the server is hosted on Heroku.
 https://freebooks-api.herokuapp.com
 
 
+and valid end points are: 
+
+get all books uses take and skip query parameters for pagination
+
+https://freebooks-api.herokuapp.com/books
+
+
+
+get single book
+
+https://freebooks-api.herokuapp.com/books/:id
+
+
+get list of all topics (more than 300 rows)
+
+https://freebooks-api.herokuapp.com/topics/
+
+
+search book by title
+
+https://freebooks-api.herokuapp.com/search/title/:bookTitle
+
+
+search book by author name
+
+https://freebooks-api.herokuapp.com/search/author/:name
+
+
+search book by publisher name
+
+https://freebooks-api.herokuapp.com/search/publisher/:name
+
+
+search book by topic
+
+https://freebooks-api.herokuapp.com/search/topic/:name
+
+
 # Usage
 
 you can send HTTP request to these routes
