@@ -9,7 +9,9 @@ the server is hosted on Heroku.
 https://freebooks-api.herokuapp.com
 
 
-and valid end points are: 
+# Usage
+
+valid endpoints are: 
 
 get all books uses take and skip query parameters for pagination
 
@@ -47,33 +49,19 @@ search book by topic
 https://freebooks-api.herokuapp.com/search/topic/:name
 
 
-# Usage
-
-you can send HTTP request to these routes
-
-```
-    /books -> returns list of available books
-    /books/:id -> return info about single book
-    
-    /ping -> to test everything works (must return pong)
-
-    *Not implemented below yet
-    /search?name=<book or author name> -> returns list of matching books or authors
-
-
-```
-
 ## Examples
 
 ### get Books
+default values for skip is 0 and for take is 20
+
 ```js
-    fetch('https://freebooks-api.herokuapp.com/books')
+    fetch('https://freebooks-api.herokuapp.com/books?skip=200&take=10')
         .then(res => res.json())
         .then(books => {
             console.log(books)
             /*
 
-                returns array of books;
+                returns array of books with id of 201 to 210;
 
                 [
                     Book {...},
@@ -112,7 +100,7 @@ you can send HTTP request to these routes
 Book object contains full information about the book.
 
 
-```
+```prisma
 model Books {
   id            Int      @id @default(autoincrement())
   title         String
